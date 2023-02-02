@@ -93,3 +93,30 @@ char	*get_next_line(int fd)
 	read_line(chr, fd, &schr);
 	return (not_new_line(&schr));
 }
+
+#include <fcntl.h>
+#include <stdio.h>
+int main()
+{
+	char *str;
+	int line = 0;
+	int fd;
+	
+	fd = open("a.txt", O_RDONLY, 0777);
+	while((str = get_next_line(fd)) != NULL)
+		line++;
+	close(fd);
+
+	fd = open("a.txt", O_RDONLY, 0777); 
+	
+	printf("Count of lines inside a.txt = %d\n", line);
+	printf("First line = %s\n", get_next_line(fd));
+
+	int i = 0;
+	while(i < line - 2)
+	{
+		get_next_line(fd);
+		i++;
+	}
+	printf("Last line = %s\n", get_next_line(fd));
+}

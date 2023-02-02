@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/01/30 17:37:16 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:20:46 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	read_line(char *chr, int fd, char **schr)
 
 	if (!*schr || !ft_strchr(*schr, '\n'))
 	{
-		rd = read(fd, chr, 5);
+		rd = read(fd, chr, BUFFER_SIZE);
 		while (rd > 0)
 		{
 			chr[rd] = 0;
@@ -35,10 +35,19 @@ void	read_line(char *chr, int fd, char **schr)
 			}
 			if (ft_strchr(chr, '\n'))
 				break ;
-			rd = read(fd, chr, 5);
+			rd = read(fd, chr, BUFFER_SIZE);
 		}
 	}	
 	free(chr);
+}
+
+static int	fin(int point, char **schr)
+{
+	if (point == 1)
+		return (ft_strlen(*schr) - ft_strlen(ft_strchr(*schr, '\n')) + 1);
+	if (point == 2)
+		return (ft_strlen(ft_strchr(*schr, '\n')) - 1);
+	return (0);
 }
 
 char	*not_new_line(char **schr)
@@ -60,9 +69,9 @@ char	*not_new_line(char **schr)
 	}
 	else
 	{
-		line = ft_substr(*schr, 0, ft_strlen(*schr) - ft_strlen(ft_strchr(*schr, '\n')) + 1);
+		line = ft_substr(*schr, 0, fin(1, schr));
 		temp = *schr;
-		*schr = ft_substr(ft_strchr(*schr, '\n'), 1, ft_strlen(ft_strchr(*schr, '\n')) - 1);
+		*schr = ft_substr(ft_strchr(*schr, '\n'), 1, fin(2, schr));
 		free(temp);
 	}
 	return (line);
@@ -75,21 +84,12 @@ char	*get_next_line(int fd)
 
 	chr = (char *)malloc(sizeof(char) * 100);
 	if (!chr)
-	{
 		return (NULL);
-		read_line(chr, fd, &schr);
+	if (read(fd, chr, 0) == -1 || fd == -1 || BUFFER_SIZE <= 0)
+	{
+		free(chr);
+		return (NULL);
 	}
+	read_line(chr, fd, &schr);
 	return (not_new_line(&schr));
-}
-
-int	main(void)
-{
-	int	fd;
-
-	fd = open("a.txt", O_CREAT | O_RDWR, 0777);
-	write(fd, "ecocum\nonur", 11);
-	close(fd);
-	fd = open("a.txt", O_RDONLY, 0777);
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
 }

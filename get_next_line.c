@@ -102,21 +102,32 @@ int main()
 	int line = 0;
 	int fd;
 	
+	//Finding total lines
 	fd = open("a.txt", O_RDONLY, 0777);
 	while((str = get_next_line(fd)) != NULL)
 		line++;
 	close(fd);
 
+	//Finding first line
 	fd = open("a.txt", O_RDONLY, 0777); 
-	
 	printf("Count of lines inside a.txt = %d\n", line);
-	printf("First line = %s\n", get_next_line(fd));
+	printf("First line = %s", get_next_line(fd));
+	close(fd);
 
+	//Finding a specific line
+	fd = open("a.txt", O_RDONLY, 0777); 
 	int i = 0;
-	while(i < line - 2)
-	{
+	while(i++ < 1) // number line - 2
+		get_next_line(fd); // 0 and 1 passed
+		
+	printf("3rd line = %s", get_next_line(fd)); // 2 which is 3 printed out
+	close(fd);
+
+	//Finding the last line
+	fd = open("a.txt", O_RDONLY, 0777); 
+	int j = 0;
+	while(j++ < line)
 		get_next_line(fd);
-		i++;
-	}
+		
 	printf("Last line = %s\n", get_next_line(fd));
 }

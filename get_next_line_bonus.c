@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/09 12:10:49 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:23:38 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*not_new_line(char **schr, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*schr[256];
+	static char	*schr[BUFF];
 	char		*chr;
 
 	chr= (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));

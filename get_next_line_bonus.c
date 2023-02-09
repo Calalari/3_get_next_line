@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 	if (read(fd, chr, 0) == -1 || fd == -1 || BUFFER_SIZE < 1)
 	{
 		free(chr);
-		free(schr);
+		free(schr[fd]);
 		return (NULL);
 	}
 	read_line(chr, fd, schr);

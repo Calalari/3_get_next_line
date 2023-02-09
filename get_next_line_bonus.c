@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/09 17:05:31 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:40:02 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (read(fd, chr, 0) == -1 || fd == -1 || BUFFER_SIZE < 1)
 	{
+		free(*schr);
 		free(chr);
-		ft_cleaner(&schr[fd]);
 		return (NULL);
 	}
-	read_line(chr, fd, schr);		
+	read_line(chr, fd, schr);
 	return (not_new_line(schr, fd));
 }

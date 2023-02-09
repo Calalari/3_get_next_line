@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/09 16:52:15 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/09 18:20:24 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	read_line(char *chr, int fd, char **schr)
 				break ;
 			rd = read(fd, chr, BUFFER_SIZE);
 		}
-	}	
+	}
 	free(chr);
 }
 
@@ -90,4 +90,42 @@ char	*get_next_line(int fd)
 	}
 	read_line(chr, fd, &schr);
 	return (not_new_line(&schr));
+}
+
+#include <fcntl.h>
+#include <stdio.h>
+int main()
+{
+	char *str;
+	int line = 0;
+	int fd;
+
+	//Finding total lines
+	fd = open("a.txt", O_RDONLY, 0777);
+	while((str = get_next_line(fd)) != NULL)
+		line++;
+	close(fd);
+
+	//Finding first line
+	fd = open("a.txt", O_RDONLY, 0777); 
+	printf("Count of lines inside a.txt = %d\n", line);
+	printf("First line = %s", get_next_line(fd));
+	close(fd);
+
+	//Finding a specific line
+	fd = open("a.txt", O_RDONLY, 0777); 
+	int i = 0;
+	while(i++ < 1) // number line - 2
+		get_next_line(fd); // 0 and 1 passed
+
+	printf("3rd line = %s", get_next_line(fd)); // 2 which is 3 printed out
+	close(fd);
+
+	//Finding the last line
+	fd = open("a.txt", O_RDONLY, 0777); 
+	int j = 0;
+	while(j++ < line)
+		get_next_line(fd);
+
+	printf("Last line = %s\n", get_next_line(fd));
 }

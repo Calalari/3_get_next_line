@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/11 13:30:47 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:18:48 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ char	*get_next_line(int fd)
 int main()
 {
 	int		line;
-	char		*str;
+	char	*str;
 	int		fd;
 
-	fd = open("a.txt", O_RDONLY);
+	fd = open("get_next_line.c", O_RDONLY);
 	str = get_next_line(fd);
 	printf("First line: %s", str);
 	free(str);
@@ -109,20 +109,20 @@ int main()
 	while ((str = get_next_line(fd)))
 	{
 		free(str);
-		++line;
+		line++;
 	}
 	printf("Count Line: %d\n", line);
 	close(fd);
 
-	fd = open("a.txt", O_RDONLY);
+	fd = open("get_next_line.c", O_RDONLY);
 	int	j;
 
-	j = -1;
-	while (++j < line)
+	j = 0;
+	while (j++ < line)
 	{
 		str = get_next_line(fd);
 		free(str);
 	}
 	printf("Last line %s\n", str);
-	//system("leaks a.out");
+	system("leaks a.out");
 }

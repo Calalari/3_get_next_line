@@ -97,45 +97,55 @@ char	*get_next_line(int fd)
 int main()
 {
 	char *str;
-	int line = 0;
-	int fd;
 
-	//Finding total lines
-	fd = open("get_next_line.c", O_RDONLY, 0777);
-	while((str = get_next_line(fd)) != NULL)
-	{
-		free(str);
-		line++;
-	}
-	close(fd);
+	int fd;
+	int line = 0;
 
 	//Finding first line
-	fd = open("get_next_line.c", O_RDONLY, 0777); 
-	printf("Count of lines inside a.txt = %d\n", line);
-	printf("First line = %s", get_next_line(fd));
+	fd = open("a.txt", O_RDONLY, 0777);
+	str = get_next_line(fd);
+	printf("First line = %s\n", str);
+	free(str);
+	str = 0;
+
+	//Finding total lines
+	while((str = get_next_line(fd)) != NULL)
+	{
+		++line;
+		free(str);
+	}
+	line++;
+	printf("Count of lines inside file = %d\n", line);
+	//system("leaks a.out");
 	close(fd);
 
-	//Finding a specific line
-	fd = open("get_next_line.c", O_RDONLY, 0777); 
-	int i = 0;
-	while(i++ < 1) // number line - 2
-		get_next_line(fd); // 0 and 1 passed
 
-	printf("3rd line = %s", get_next_line(fd)); // 2 which is 3 printed out
+	//Finding a specific line
+	fd = open("a.txt", O_RDONLY, 0777); 
+	int i = 0;
+	while(i < 2) // i > wanted number line
+	{	
+		str = get_next_line(fd);
+		free(str);
+		i++;
+	}
+	str = get_next_line(fd);
+	printf("3rd line = %s\n", str); // 2 which is 3 printed out
+	free(str);
+	//system("leaks a.out");
 	close(fd);
 
 	//Finding the last line
-	fd = open("get_next_line.c", O_RDONLY, 0777); 
-	int j = 0;
-	while(j++ < line)
+	fd = open("a.txt", O_RDONLY, 0777); 
+	int j = -1;
+	while(++j < line + 1)
 	{
 		str = get_next_line(fd);
 		free(str);
 	}
-
 	str = get_next_line(fd);
 	printf("Last line = %s\n", str);
 	free(str);
 	close(fd);
-	system("leaks a.out");
+	//system("leaks a.out");
 }

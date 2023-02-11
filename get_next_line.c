@@ -6,11 +6,12 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/11 15:20:06 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:37:38 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 void	read_line(char *chr, int fd, char **schr)
 {
@@ -20,20 +21,28 @@ void	read_line(char *chr, int fd, char **schr)
 	if (!*schr || !ft_strchr(*schr, '\n'))
 	{
 		rd = read(fd, chr, BUFFER_SIZE);
+		printf("1) rd value: %d\n", rd);
 		while (rd > 0)
 		{
 			chr[rd] = 0;
+			printf("2) chr value: %s\n", chr);
 			if (!*schr)
+			{
 				*schr = ft_substr(chr, 0, rd);
+				printf("3) schr value: %s\n", *schr);
+			}
 			else
 			{
 				temp = *schr;
 				*schr = ft_strjoin(*schr, chr);
+				printf("4) schr value on join: %s\n", *schr);
 				free(temp);
 			}
 			if (ft_strchr(chr, '\n'))
 				break ;
 			rd = read(fd, chr, BUFFER_SIZE);
+		rd = read(fd, chr, BUFFER_SIZE);
+		printf("5) rd value at last: %d\n", rd);
 		}
 	}
 	free(chr);
@@ -64,13 +73,16 @@ char	*not_new_line(char **schr)
 			return (NULL);
 		}
 		line = ft_substr(*schr, 0, ft_strlen(*schr));
+		printf("6) current line value: %s\n", line);
 		free(*schr);
 		*schr = 0;
 		return (line);
 	}
 	line = ft_substr(*schr, 0, fin(1, schr));
+	printf("7) line value before newline: %s\n", line);
 	temp = *schr;
 	*schr = ft_substr(ft_strchr(*schr, '\n'), 1, fin(2, schr));
+	printf("8) schr value after newline: %s\n", *schr);
 	free(temp);
 	return (line);
 }
@@ -94,7 +106,7 @@ char	*get_next_line(int fd)
 }
 
 #include <fcntl.h>
-#include <stdio.h>
+
 int main()
 {
 	int		line;
@@ -102,7 +114,7 @@ int main()
 	int		fd;
 
 	// Printing first line and line count
-	fd = open("get_next_line.c", O_RDONLY);
+	fd = open("a.txt", O_RDONLY);
 	str = get_next_line(fd);
 	printf("First line: %s", str);
 	free(str);
@@ -112,11 +124,11 @@ int main()
 		free(str);
 		line++;
 	}
-	printf("Count Line: %d\n", line);
+	printf("Line count: %d\n", line);
 	close(fd);
 
 	// Finding last line
-	fd = open("get_next_line.c", O_RDONLY);
+	fd = open("a.txt", O_RDONLY);
 	int	j;
 
 	j = 0;
@@ -126,5 +138,5 @@ int main()
 		free(str);
 	}
 	printf("Last line %s\n", str);
-	system("leaks a.out");
+	//system("leaks a.out");
 }

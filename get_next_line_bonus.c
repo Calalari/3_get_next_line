@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/09 18:13:19 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:17:13 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*not_new_line(char **schr, int fd)
 		if (!ft_strlen(schr[fd]))
 		{
 			free(schr[fd]);
+			schr[fd] = 0;
 			return (NULL);
 		}
 		line = ft_substr(schr[fd], 0, ft_strlen(schr[fd]));

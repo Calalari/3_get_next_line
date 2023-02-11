@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/09 18:20:24 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/11 13:30:47 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*not_new_line(char **schr)
 		if (!ft_strlen(*schr))
 		{
 			free(*schr);
+			*schr = 0;
 			return (NULL);
 		}
 		line = ft_substr(*schr, 0, ft_strlen(*schr));
@@ -96,56 +97,32 @@ char	*get_next_line(int fd)
 #include <stdio.h>
 int main()
 {
-	char *str;
+	int		line;
+	char		*str;
+	int		fd;
 
-	int fd;
-	int line = 0;
-
-	//Finding first line
-	fd = open("a.txt", O_RDONLY, 0777);
+	fd = open("a.txt", O_RDONLY);
 	str = get_next_line(fd);
-	printf("First line = %s\n", str);
+	printf("First line: %s", str);
 	free(str);
-	str = 0;
-
-	//Finding total lines
-	while((str = get_next_line(fd)) != NULL)
+	line = 1;
+	while ((str = get_next_line(fd)))
 	{
+		free(str);
 		++line;
-		free(str);
 	}
-	line++;
-	printf("Count of lines inside file = %d\n", line);
-	//system("leaks a.out");
+	printf("Count Line: %d\n", line);
 	close(fd);
 
+	fd = open("a.txt", O_RDONLY);
+	int	j;
 
-	//Finding a specific line
-	fd = open("a.txt", O_RDONLY, 0777); 
-	int i = 0;
-	while(i < 2) // i > wanted number line
-	{	
-		str = get_next_line(fd);
-		free(str);
-		i++;
-	}
-	str = get_next_line(fd);
-	printf("3rd line = %s\n", str); // 2 which is 3 printed out
-	free(str);
-	//system("leaks a.out");
-	close(fd);
-
-	//Finding the last line
-	fd = open("a.txt", O_RDONLY, 0777); 
-	int j = -1;
-	while(++j < line + 1)
+	j = -1;
+	while (++j < line)
 	{
 		str = get_next_line(fd);
 		free(str);
 	}
-	str = get_next_line(fd);
-	printf("Last line = %s\n", str);
-	free(str);
-	close(fd);
+	printf("Last line %s\n", str);
 	//system("leaks a.out");
 }

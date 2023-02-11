@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:51:44 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/11 15:18:48 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:20:06 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int main()
 	char	*str;
 	int		fd;
 
+	// Printing first line and line count
 	fd = open("get_next_line.c", O_RDONLY);
 	str = get_next_line(fd);
 	printf("First line: %s", str);
@@ -114,6 +115,7 @@ int main()
 	printf("Count Line: %d\n", line);
 	close(fd);
 
+	// Finding last line
 	fd = open("get_next_line.c", O_RDONLY);
 	int	j;
 

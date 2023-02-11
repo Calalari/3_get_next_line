@@ -103,7 +103,10 @@ int main()
 	//Finding total lines
 	fd = open("a.txt", O_RDONLY, 0777);
 	while((str = get_next_line(fd)) != NULL)
+	{
+		free(str);
 		line++;
+	}
 	close(fd);
 
 	//Finding first line
@@ -125,40 +128,15 @@ int main()
 	fd = open("a.txt", O_RDONLY, 0777); 
 	int j = 0;
 	while(j++ < line)
-		get_next_line(fd);
-
-	printf("Last line = %s\n", get_next_line(fd));
-}
-
-#include <fcntl.h>
-#include <stdio.h>
-
-int main(void)
-{
-	char *str;
-	int line = 0;
-	
-	int fd = open("a.txt", O_RDONLY, 0777);
-	
-	while((str = get_next_line(fd)) != NULL)
-	{
-		free(str);
-		line++;
-	}
-	close(fd);
-	
-	printf("Line Count: %d\n", line);
-	fd = open("a.txt", O_RDONLY, 0777); 
-	
-	int i = 0;
-	while(++i < line)
 	{
 		str = get_next_line(fd);
 		free(str);
 	}
+
 	str = get_next_line(fd);
-	printf("Last line: %s\n", str);
+	printf("Last line = %s\n", str);
 	free(str);
 	close(fd);
 	system("leaks a.out");
 }
+

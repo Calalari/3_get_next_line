@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:53:09 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/09 12:23:58 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:34:06 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 # define GET_NEXT_LINE_BONUS_H
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
-# endif 
-# ifndef BUFF
-#  define BUFF 256
 # endif 
 
 char	*ft_strchr(const char *s, int c);

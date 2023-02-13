@@ -33,7 +33,7 @@ void	read_line(char *chr, int fd, char **schr)
 			}
 			if (ft_strchr(chr, '\n'))
 				break ;
-			rd = read(fd, chr, BUFFER_SIZE);
+		rd = read(fd, chr, BUFFER_SIZE);
 		}
 	}	
 	free(chr);

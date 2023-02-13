@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 void	read_line(char *chr, int fd, char **schr)
 {
@@ -89,6 +88,7 @@ char	*get_next_line(int fd)
 	return (not_new_line(&schr));
 }
 
+#include <stdio.h>
 #include <fcntl.h>
 
 int main()

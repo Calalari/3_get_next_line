@@ -85,3 +85,30 @@ char	*get_next_line(int fd)
 	read_line(chr, fd, schr);
 	return (not_new_line(schr, fd));
 }
+
+#include <fcntl.h>
+#include <stdio.h>
+
+int main()
+{
+	int		line;
+	char	*str;
+	char	*str1;
+
+	int		fd;
+	int		fd1;
+
+	// Printing first line and line count
+	fd = open("a.txt", O_RDONLY);
+	fd1 = open("b.txt", O_RDONLY);
+
+	str = get_next_line(fd);
+	str1 = get_next_line(fd1);
+	printf("First line of fd: %s\n", str);
+	printf("First line of fd1: %s\n", str1);
+
+	free(str);
+	free(str1);
+	close(fd);
+	system("leaks a.out");
+}

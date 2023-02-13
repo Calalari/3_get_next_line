@@ -6,7 +6,7 @@
 /*   By: mervyilm <mervyilm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 15:53:09 by mervyilm          #+#    #+#             */
-/*   Updated: 2023/02/11 11:46:15 by mervyilm         ###   ########.fr       */
+/*   Updated: 2023/02/13 12:35:24 by mervyilm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define GET_NEXT_LINE_H
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif 
